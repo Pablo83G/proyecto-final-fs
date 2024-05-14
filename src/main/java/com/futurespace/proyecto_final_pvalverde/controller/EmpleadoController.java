@@ -16,7 +16,7 @@ public class EmpleadoController {
 
     //Conecta con el servicio
     @Autowired
-    private EmpleadoService empleadoService;
+    EmpleadoService empleadoService;
 
 
     @PostMapping("/createEmpleado")
