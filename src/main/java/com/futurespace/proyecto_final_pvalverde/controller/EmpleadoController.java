@@ -25,7 +25,7 @@ public class EmpleadoController {
     }
 
 
-    @GetMapping("/getEmpleado")
+    @GetMapping("/getEmpleados")
     public ResponseEntity<List<Empleado>> getEmpleado(){
         return empleadoService.getEmpleado();
     }

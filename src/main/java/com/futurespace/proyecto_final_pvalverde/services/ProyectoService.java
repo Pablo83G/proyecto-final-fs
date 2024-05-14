@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProyectoService {
 
@@ -37,4 +39,10 @@ public class ProyectoService {
         }
     }
 
+    //Conseguir datos
+    public ResponseEntity<List<Proyecto>> getProyecto(){
+        List<Proyecto> proyList = iProyectoRepository.findAll();
+        return new ResponseEntity<>(proyList, HttpStatus.OK);
+
+    }
 }

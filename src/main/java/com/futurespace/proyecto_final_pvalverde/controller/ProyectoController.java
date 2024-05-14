@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/proyectos")//http://localhost:8080/proyectos
 public class ProyectoController {
@@ -19,4 +21,8 @@ public class ProyectoController {
         return proyectoService.addProyecto(proyecto);
     }
 
+    @GetMapping(path = "/getProyectos")
+    public ResponseEntity<List<Proyecto>>getProyecto(){
+        return proyectoService.getProyecto();
+    }
 }
