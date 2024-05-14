@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
+//Nombre de clase y tipo de datos de su ID
 public interface IEmpleadosRepositorio extends JpaRepository<Empleado, Integer> {
 
 
