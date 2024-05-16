@@ -3,15 +3,14 @@ package com.futurespace.proyecto_final_pvalverde.controller;
 import com.futurespace.proyecto_final_pvalverde.entities.Empleado;
 import com.futurespace.proyecto_final_pvalverde.services.EmpleadoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/empleados")//http://localhost:8080/empleado
+//@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/empleados")//http://localhost:8080/empleados
 public class EmpleadoController {
 
     //Conecta con el servicio
@@ -30,29 +29,19 @@ public class EmpleadoController {
         return empleadoService.getEmpleado();
     }
 
-    // Actualizar la información sobre los usuarios
-   /*
-    @PutMapping (path = "/{userId}",
 
-            consumes = {
-                    MediaType.APPLICATION_XML_VALUE,
-                    MediaType.APPLICATION_JSON_VALUE
-            },
-            produces = {
-                    MediaType.APPLICATION_XML_VALUE,
-                    MediaType.APPLICATION_JSON_VALUE
-            })
-
-    public UserRest updateUser(@PathVariable String userId, @Validated @RequestBody UpdateUserDetailsRequestModel userDetails) {
-        //Utilizamos el objeto de clase UserRest para tener sus atributos y métodos
-        UserRest storeUserDetails = users.get(userId); // objeto datos almacenados
-        storeUserDetails.setFirstname(userDetails.getFirstName()); // establecer nuevo nombre usando el objeto userDetails
-        storeUserDetails.setLastname(userDetails.getLastName()); // establecer nuevo apellido
-        users.put(userId, storeUserDetails); // actualizar usuarios para devolver la información almacenada
-
-        return storeUserDetails;
+    @GetMapping("/getEmpleados/{id_empleado}")
+    public ResponseEntity<?> getById_empleado(@PathVariable Integer id_empleado){
+        return empleadoService.getById_empleado(id_empleado);
     }
-*/
+
+    // Actualizar la información sobre los empleados
+    /*@PutMapping (path = "updateEmpleado/{id_empleado}")
+   //public ResponseEntity<Empleado> updateEmpleado(@PathVariable int id_empleado, @Validated @RequestBody UpdateUserDetailsRequestModel userDetails)
+    public ResponseEntity<Object> updateEmpleado(@PathVariable int id_empleado, @RequestBody Empleado empleado) {
+
+        return empleadoService.updateEmpleado(empleado, id_empleado);
+    }*/
     //Borrar usuario
     @DeleteMapping (path = "deleteById/{id_empleado}")
     public ResponseEntity<Object> deleteIdEmpleado(@PathVariable int id_empleado){

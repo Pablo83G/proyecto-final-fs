@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 //Nombre de clase y tipo de datos de su ID
 public interface IEmpleadoRepository extends JpaRepository<Empleado, Integer> {
 
+
 }
