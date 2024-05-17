@@ -15,7 +15,7 @@ import java.util.List;
 public class ProyectoController {
 
     @Autowired
-    ProyectoService proyectoService;
+    private ProyectoService proyectoService;
 
     @PostMapping("/createProyecto")
     public ResponseEntity<Object> addProyecto(@RequestBody Proyecto proyecto){
@@ -26,4 +26,11 @@ public class ProyectoController {
     public ResponseEntity<List<Proyecto>>getProyecto(){
         return proyectoService.getProyecto();
     }
+
+    @GetMapping(path = "/getProyectos/{id_proyecto}")
+    public ResponseEntity<?>getProyectoById_proyecto(@PathVariable Integer id_proyecto){
+        return proyectoService.getProyectoById_proyecto(id_proyecto);
+    }
+
+
 }

@@ -10,7 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProyectoService {
@@ -42,8 +44,29 @@ public class ProyectoService {
     //Conseguir datos
     public ResponseEntity<List<Proyecto>> getProyecto(){
         List<Proyecto> proyList = iProyectoRepository.findAll();
-        return new ResponseEntity<>(proyList, HttpStatus.OK);
+        List<Proyecto> proylistFechaBajaIsNull = new ArrayList<>();
 
+        for(Proyecto proy : proyList){
+            if(proy.getFecha_baja() == null){
+                proylistFechaBajaIsNull.add(proy);
+            }
+        }
+        return new ResponseEntity<>(proylistFechaBajaIsNull, HttpStatus.OK);
+    }
+
+    //Encontar proyecto por id
+    public ResponseEntity<Object>getProyectoById_proyecto(Integer id_proyecto){
+        ResponseEntity<Object> resp = null;
+        if(id_proyecto == null){
+            resp = new ResponseEntity<>("ID de proyecto no proporcionado", HttpStatus.BAD_REQUEST);
+            return resp;
+        }
+        Optional<Proyecto> proyId = iProyectoRepository.findById(id_proyecto);
+        if(proyId.isEmpty()){
+            resp = new ResponseEntity<>("EL id proporcionado no se encuentra",HttpStatus.NOT_FOUND);
+            return resp;
+        }
+        return ResponseEntity.ok(proyId);
     }
 
 
