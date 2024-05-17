@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "PR_EMPLEADO_PROYECTO")
+@Entity(name = "PR_EMPLEADO_PROYECTO")
+//@Table
 public class EmpleadoProyecto {
 
         @EmbeddedId

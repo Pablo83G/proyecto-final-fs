@@ -30,6 +30,7 @@ public class EmpleadoController {
     }
 
 
+
     @GetMapping("/getEmpleados/{id_empleado}")
     public ResponseEntity<?> getById_empleado(@PathVariable Integer id_empleado){
         return empleadoService.getById_empleado(id_empleado);

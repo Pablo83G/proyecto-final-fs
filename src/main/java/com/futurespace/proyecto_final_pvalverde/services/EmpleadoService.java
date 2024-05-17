@@ -1,7 +1,6 @@
 package com.futurespace.proyecto_final_pvalverde.services;
 
 import com.futurespace.proyecto_final_pvalverde.entities.Empleado;
-import com.futurespace.proyecto_final_pvalverde.entities.Proyecto;
 import com.futurespace.proyecto_final_pvalverde.repositories.IEmpleadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -10,9 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class EmpleadoService {
@@ -46,19 +45,19 @@ public class EmpleadoService {
     //Conseguir datos
     public ResponseEntity<List<Empleado>> getEmpleado(){
         List<Empleado> emplList = iEmpleadoRepository.findAll();
-        return new ResponseEntity<>(emplList, HttpStatus.OK);
+        List<Empleado> listaEmplFechaBajaIsNull = new ArrayList<>();
+
+        for(Empleado empl : emplList){
+            if(empl.getFecha_baja() == null){
+                listaEmplFechaBajaIsNull.add(empl);
+            }
+
+        }
+        return new ResponseEntity<>(listaEmplFechaBajaIsNull, HttpStatus.OK);
 
     }
 
-   /* public ResponseEntity<Object> getById_empleado(int id_empleado){
-        ResponseEntity<Object> resp = null;
-        Optional<Empleado> empl = iEmpleadoRepository.findById(id_empleado);
-            if(empl.isEmpty()){
-                return ResponseEntity.notFound().build();
-            }
-        return ResponseEntity.ok(empl);
 
-    }*/
    public ResponseEntity<Object> getById_empleado(Integer id_empleado){
        ResponseEntity<Object> resp = null;
        if(id_empleado == null){
