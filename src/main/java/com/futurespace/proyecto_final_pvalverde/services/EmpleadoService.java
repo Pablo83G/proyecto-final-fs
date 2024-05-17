@@ -1,6 +1,7 @@
 package com.futurespace.proyecto_final_pvalverde.services;
 
 import com.futurespace.proyecto_final_pvalverde.entities.Empleado;
+import com.futurespace.proyecto_final_pvalverde.entities.Proyecto;
 import com.futurespace.proyecto_final_pvalverde.repositories.IEmpleadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -8,8 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EmpleadoService {
@@ -80,18 +83,59 @@ public class EmpleadoService {
 
 
     //Actualizar
-    /*public ResponseEntity<Object>updateEmpleado(Empleado empleado, int id_empleado){
+   /* public ResponseEntity<Object> updateEmpleado(Empleado empleado, int id_empleado){
         ResponseEntity<Object> resp = null;
         try {
-            Optional<Empleado> empleadoId = iEmpleadoRepository.findById(id_empleado);
-            Empleado empl = iEmpleadoRepository.save(id_empleado, empleadoId);
-            resp = new ResponseEntity<>("Empleado actualizado correctamente", HttpStatus.OK);
-            return resp;
-        }catch (Exception ex){
-            resp = new ResponseEntity<>("Ha habido un error al actualizar el usuario", HttpStatus.BAD_REQUEST);
+            Optional<Empleado> optionalEmpl = iEmpleadoRepository.findById(id_empleado);
+            if (optionalEmpl.isEmpty()) {
+                return ResponseEntity.notFound().build(); // Si no se encuentra el empleado, devolver 404 Not Found
+            }
+            Empleado existingEmpl = optionalEmpl.get(); // Obtener el objeto Empleado de Optional
+            existingEmpl.setFecha_baja(empleado.getFecha_baja());
+            // Guardar el empleado actualizado en la base de datos
+            Empleado updatedEmpleado = iEmpleadoRepository.save(existingEmpl);
 
-            System.out.print("Error: " + ex.getMessage());
+            resp = new ResponseEntity<>("Empleado se ha dado de baja correctamente", HttpStatus.OK);
+            return resp;
+        } catch (Exception ex) {
+            resp = new ResponseEntity<>("Ha habido un error al actualizar el empleado", HttpStatus.BAD_REQUEST);
+            System.out.println("Error: " + ex.getMessage());
             return resp;
         }
     }*/
+
+
+    //Actualizar Fecha de Baja Empleado
+   public ResponseEntity<Object> updateFechaBajaEmpleado(int id_empleado) {
+        try {
+            Optional<Empleado> optionalEmpleado = iEmpleadoRepository.findById(id_empleado);
+            if (optionalEmpleado.isEmpty()) {
+                return ResponseEntity.notFound().build();
+            }
+
+            Empleado empleado = optionalEmpleado.get();
+            if (empleado.getFecha_baja() != null) {
+                return ResponseEntity.badRequest().body("El empleado ya ha sido dado de baja anteriormente");
+            }
+
+            // Verificar si el empleado está asignado a proyectos
+            /*if (!empleado.getProyecto().isEmpty()) {
+                StringBuilder mensaje = new StringBuilder("No se puede dar de baja al empleado ");
+                mensaje.append(empleado.getNombre_completo());
+                mensaje.append(" porque está asignado al/los proyecto/s: ");
+                mensaje.append(empleado.getProyecto().stream().map(Proyecto::getDescripcion).collect(Collectors.joining(", ")));
+                return ResponseEntity.badRequest().body(mensaje.toString());
+            }*/
+
+            empleado.setFecha_baja(LocalDate.now());
+            iEmpleadoRepository.save(empleado);
+
+            return ResponseEntity.ok("Empleado dado de baja correctamente");
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().body("Ha ocurrido un error al dar de baja al empleado");
+        }
+    }
+
+
+
 }

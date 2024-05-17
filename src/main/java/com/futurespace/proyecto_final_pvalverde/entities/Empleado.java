@@ -1,8 +1,12 @@
 package com.futurespace.proyecto_final_pvalverde.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 //@Entity para identificar que una clase sea una entidad
 // Recibe como parametro un atributo y podemor representar el nombre
@@ -14,12 +18,11 @@ import java.time.LocalDate;
 public class Empleado {
     @Id
     //GenerateValue = de que manera se va a generar nuestra clave primaria
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "empleado_seq"
+    @GeneratedValue( strategy = GenerationType.SEQUENCE,
+            generator = "empleado_sequence"
     )
     @SequenceGenerator(
-            name = "empleado_seq",
+            name = "empleado_sequence",
             sequenceName = "empleado_sequence",
             allocationSize = 1
     )
@@ -109,6 +112,13 @@ public class Empleado {
     )
     private char servicio_militar;
 
+
+    @OneToMany(mappedBy = "empleado", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
+    private Set<EmpleadoProyecto> empleadoProyecto = new HashSet<>();
+
+
+
     //CONSTRUCTORES
 
     public Empleado() {
@@ -133,7 +143,10 @@ public class Empleado {
         this.servicio_militar = servicio_militar;
     }
 
+
+
     //SETTER Y GETTER
+
 
     public int getId_empleado() {
         return id_empleado;

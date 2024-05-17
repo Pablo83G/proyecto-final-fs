@@ -36,17 +36,26 @@ public class EmpleadoController {
     }
 
     // Actualizar la información sobre los empleados
-    /*@PutMapping (path = "updateEmpleado/{id_empleado}")
+   /* @PutMapping (path = "updateEmpleado/{id_empleado}")
    //public ResponseEntity<Empleado> updateEmpleado(@PathVariable int id_empleado, @Validated @RequestBody UpdateUserDetailsRequestModel userDetails)
-    public ResponseEntity<Object> updateEmpleado(@PathVariable int id_empleado, @RequestBody Empleado empleado) {
+    public ResponseEntity<Object> updateEmpleado(@RequestBody Empleado empleado, @PathVariable int id_empleado) {
 
         return empleadoService.updateEmpleado(empleado, id_empleado);
     }*/
+
     //Borrar usuario
     @DeleteMapping (path = "deleteById/{id_empleado}")
     public ResponseEntity<Object> deleteIdEmpleado(@PathVariable int id_empleado){
         return empleadoService.deleteIdEmpleado(id_empleado);
     }
+
+    //Actualizar fecha de baja
+    @PutMapping("/udpdateEmpleado/{id_empleado}")
+    public ResponseEntity<Object> updateFechaBajaEmpleado(@PathVariable int id_empleado) {
+        return empleadoService.updateFechaBajaEmpleado(id_empleado);
+    }
+
+
 
 
 }

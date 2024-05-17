@@ -1,20 +1,23 @@
 package com.futurespace.proyecto_final_pvalverde.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity(name = "proyectos")
 @Table(name = "PR_PROYECTOS")
 public class Proyecto {
     /*/ID_PROYECTO 				INT(5) PRIMARY KEY NOT NULL */
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "proyecto_seq"
+    @GeneratedValue( strategy = GenerationType.SEQUENCE,
+            generator = "proyecto_sequence"
     )
     @SequenceGenerator(
-            name = "proyecto_seq",
+            name = "proyecto_sequence",
             sequenceName = "proyecto_sequence",
             allocationSize = 1
     )
@@ -66,6 +69,10 @@ public class Proyecto {
     )
     private String observaciones;
 
+    @OneToMany(mappedBy = "proyecto", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
+    private Set<EmpleadoProyecto> empleadoProyecto = new HashSet<>();
+
     //CONSTRUCTOR
     public Proyecto() {
     }
@@ -80,6 +87,10 @@ public class Proyecto {
         this.fecha_baja = fecha_baja;
         this.lugar = lugar;
         this.observaciones = observaciones;
+    }
+
+    public Proyecto(Set<EmpleadoProyecto> empleadoProyecto) {
+        this.empleadoProyecto = empleadoProyecto;
     }
 
     //GETTER AND SETTER
@@ -139,4 +150,13 @@ public class Proyecto {
     public void setObservaciones(String observaciones) {
         this.observaciones = observaciones;
     }
+
+    public Set<EmpleadoProyecto> getEmpleadoProyecto() {
+        return empleadoProyecto;
+    }
+
+    public void setEmpleadoProyecto(Set<EmpleadoProyecto> empleadoProyecto) {
+        this.empleadoProyecto = empleadoProyecto;
+    }
 }
+
