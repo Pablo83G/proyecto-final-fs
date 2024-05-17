@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -68,6 +69,43 @@ public class ProyectoService {
         }
         return ResponseEntity.ok(proyId);
     }
+
+
+    //Actualizar Fecha de Baja Proyecto
+    public ResponseEntity<Object> updateFechaBajaProyecto(int id_proyecto) {
+        ResponseEntity<Object> resp = null;
+        try {
+            Optional<Proyecto> optionalProyecto = iProyectoRepository.findById(id_proyecto);
+            if (optionalProyecto.isEmpty()) {
+                resp = new ResponseEntity<>("No se ha encontrado ningún proyecto", HttpStatus.NOT_FOUND);
+                return resp;
+            }
+
+            Proyecto proyecto = optionalProyecto.get();
+            if (proyecto.getFecha_baja() != null) {
+                resp = new ResponseEntity<>("El proyecto ya ha sido dado de baja anteriormente", HttpStatus.BAD_REQUEST);
+                return resp;
+            }
+
+            // Verificar si el empleado está asignado a proyectos
+            /*if (!empleado.getProyecto().isEmpty()) {
+                StringBuilder mensaje = new StringBuilder("No se puede dar de baja al empleado ");
+                mensaje.append(empleado.getNombre_completo());
+                mensaje.append(" porque está asignado al/los proyecto/s: ");
+                mensaje.append(empleado.getProyecto().stream().map(Proyecto::getDescripcion).collect(Collectors.joining(", ")));
+                return ResponseEntity.badRequest().body(mensaje.toString());
+            }*/
+
+            proyecto.setFecha_baja(LocalDate.now());
+            iProyectoRepository.save(proyecto);
+            resp = new ResponseEntity<>("Empleado dado de baja correctamente", HttpStatus.OK);
+            return resp;
+        } catch (Exception ex) {
+            resp = new ResponseEntity<>("Ha ocurrido un error al dar de baja al empleado", HttpStatus.BAD_REQUEST);
+            return resp;
+        }
+    }
+
 
 
 }

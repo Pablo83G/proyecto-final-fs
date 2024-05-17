@@ -81,29 +81,6 @@ public class EmpleadoService {
     }
 
 
-    //Actualizar
-   /* public ResponseEntity<Object> updateEmpleado(Empleado empleado, int id_empleado){
-        ResponseEntity<Object> resp = null;
-        try {
-            Optional<Empleado> optionalEmpl = iEmpleadoRepository.findById(id_empleado);
-            if (optionalEmpl.isEmpty()) {
-                return ResponseEntity.notFound().build(); // Si no se encuentra el empleado, devolver 404 Not Found
-            }
-            Empleado existingEmpl = optionalEmpl.get(); // Obtener el objeto Empleado de Optional
-            existingEmpl.setFecha_baja(empleado.getFecha_baja());
-            // Guardar el empleado actualizado en la base de datos
-            Empleado updatedEmpleado = iEmpleadoRepository.save(existingEmpl);
-
-            resp = new ResponseEntity<>("Empleado se ha dado de baja correctamente", HttpStatus.OK);
-            return resp;
-        } catch (Exception ex) {
-            resp = new ResponseEntity<>("Ha habido un error al actualizar el empleado", HttpStatus.BAD_REQUEST);
-            System.out.println("Error: " + ex.getMessage());
-            return resp;
-        }
-    }*/
-
-
     //Actualizar Fecha de Baja Empleado
    public ResponseEntity<Object> updateFechaBajaEmpleado(int id_empleado) {
         try {

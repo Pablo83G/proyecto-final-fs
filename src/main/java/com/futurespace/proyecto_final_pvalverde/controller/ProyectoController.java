@@ -32,5 +32,10 @@ public class ProyectoController {
         return proyectoService.getProyectoById_proyecto(id_proyecto);
     }
 
+    @PutMapping(path = "/updateProyecto/{id_proyecto}")
+    public ResponseEntity<Object>updateFechaBajaProyecto(@PathVariable int id_proyecto){
+        return proyectoService.getProyectoById_proyecto(id_proyecto);
+    }
+
 
 }
