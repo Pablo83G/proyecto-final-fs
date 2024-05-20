@@ -98,10 +98,10 @@ public class ProyectoService {
 
             proyecto.setFecha_baja(LocalDate.now());
             iProyectoRepository.save(proyecto);
-            resp = new ResponseEntity<>("Empleado dado de baja correctamente", HttpStatus.OK);
+            resp = new ResponseEntity<>("Proyecto dado de baja correctamente", HttpStatus.OK);
             return resp;
         } catch (Exception ex) {
-            resp = new ResponseEntity<>("Ha ocurrido un error al dar de baja al empleado", HttpStatus.BAD_REQUEST);
+            resp = new ResponseEntity<>("Ha ocurrido un error al dar de baja al proyecto", HttpStatus.BAD_REQUEST);
             return resp;
         }
     }

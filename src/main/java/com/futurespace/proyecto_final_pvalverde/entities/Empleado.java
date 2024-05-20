@@ -2,10 +2,13 @@ package com.futurespace.proyecto_final_pvalverde.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 //@Entity para identificar que una clase sea una entidad
@@ -31,24 +34,29 @@ public class Empleado {
             updatable = false,
             nullable = false
     )
-    private int id_empleado;
+    private Integer id_empleado;
 
     @Column(name = "TX_NIF",
             length = 9,
             columnDefinition = "TEXT",
             nullable = false)
+    @Size(min = 9, max = 9, message = "El NIF debe tener 9 caracteres")
     private String nif;
 
     @Column(name = "TX_NOMBRE",
             length = 30,
             columnDefinition = "TEXT",
             nullable = false)
+    @Size(max = 30, message = "El campo nombre no puede tener más de 30 caracteres")
+    @NotBlank(message = "Este campo no puede quedar vacío")
     private String nombre;
 
     @Column(name = "TX_APELLIDO1",
             length = 40,
             columnDefinition = "TEXT",
             nullable = false)
+    @Size(max = 40, message = "Este campo no puede tener más de 40 caracteres")
+    @NotBlank(message = "Este campo no puede quedar vacío")
     private String primer_apellido;
 
     @Column(name = "TX_APELLIDO2",
@@ -56,12 +64,16 @@ public class Empleado {
             columnDefinition = "TEXT",
             nullable = false
     )
+    @Size(max = 40, message = "Este campo no puede tener más de 40 caracteres")
+    @NotBlank(message = "Este campo no puede quedar vacío")
     private String segundo_apellido;
 
     @Column(name = "N_TELEFONO1",
             length = 12,
             columnDefinition = "TEXT",
             nullable = false)
+    @NotBlank(message = "El campo primer teléfono no puede estar vacío")
+    @Size(min = 9, max = 12, message = "El campo primer teléfono debe tener un un mínimo de 9 y máximo de 12 caracteres")
     private String telefono_uno;
 
     @Column(
@@ -69,6 +81,9 @@ public class Empleado {
             length = 12,
             columnDefinition = "TEXT",
             nullable = false)
+    @NotBlank(message = "El campo segundo teléfono no puede estar vacío")
+    @Size(min = 9, max = 12, message = "El campo campo segundo teléfono debe tener un un mínimo de 9 y máximo de 12 caracteres")
+
     private String telefono_dos;
 
     @Column(
@@ -76,6 +91,7 @@ public class Empleado {
             nullable = false,
             columnDefinition = "DATE"
     )
+    @NotNull(message = "Este campo se debe rellenar de forma obligatoria")
     private LocalDate fecha_nacimiento;
 
     @Column(
@@ -83,6 +99,7 @@ public class Empleado {
             nullable=false,
             columnDefinition="DATE"
     )
+    @NotNull(message = "Este campo no puede estar vacío")
     private LocalDate fecha_alta;
 
     @Column(
@@ -96,21 +113,28 @@ public class Empleado {
             nullable = false,
             columnDefinition = "TEXT"
     )
+    @Email(message = "Introduce una dirección de mail correcta")
+    @NotBlank(message = "El campo Email no puede estar vacío")
+    @Size(max = 40, message = "El campo Email debe tener un máximo de 40 caracteres")
     private String email;
 
     @Column(
             name="CX_EDOCIVIL",
             nullable=false,
+            length = 1,
             columnDefinition = "CHAR"
     )
-    private char estado_civil;
+    @NotNull(message = "Esta campo no puede estar vacío")
+    private Character estado_civil;
 
     @Column(
             name="B_SERVMILITAR",
             nullable = false,
+            length = 1,
             columnDefinition = "CHAR"
     )
-    private char servicio_militar;
+    @NotNull(message = "Esta campo no puede estar vacío")
+    private Character servicio_militar;
 
 
     @OneToMany(mappedBy = "empleado", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -118,13 +142,12 @@ public class Empleado {
     private Set<EmpleadoProyecto> empleadoProyecto = new HashSet<>();
 
 
-
-    //CONSTRUCTORES
+//CONSTRUCTORES
 
     public Empleado() {
     }
 
-    public Empleado(int id_empleado, String nif, String nombre, String primer_apellido,
+    public Empleado(Integer id_empleado, String nif, String nombre, String primer_apellido,
                     String segundo_apellido, String telefono_uno, String telefono_dos,
                     LocalDate fecha_nacimiento, LocalDate fecha_alta, LocalDate fecha_baja,
                     String email, char estado_civil, char servicio_militar) {
@@ -148,11 +171,11 @@ public class Empleado {
     //SETTER Y GETTER
 
 
-    public int getId_empleado() {
+    public Integer getId_empleado() {
         return id_empleado;
     }
 
-    public void setId_empleado(int id_empleado) {
+    public void setId_empleado(Integer id_empleado) {
         this.id_empleado = id_empleado;
     }
 
@@ -236,21 +259,27 @@ public class Empleado {
         this.email = email;
     }
 
-    public char getEstado_civil() {
+    public Character getEstado_civil() {
         return estado_civil;
     }
 
-    public void setEstado_civil(char estado_civil) {
+    public void setEstado_civil(Character estado_civil) {
         this.estado_civil = estado_civil;
     }
 
-    public char getServicio_militar() {
+    public Character getServicio_militar() {
         return servicio_militar;
     }
 
-    public void setServicio_militar(char servicio_militar) {
+    public void setServicio_militar(Character servicio_militar) {
         this.servicio_militar = servicio_militar;
     }
 
+    public Set<EmpleadoProyecto> getEmpleadoProyecto() {
+        return empleadoProyecto;
+    }
 
+    public void setEmpleadoProyecto(Set<EmpleadoProyecto> empleadoProyecto) {
+        this.empleadoProyecto = empleadoProyecto;
+    }
 }

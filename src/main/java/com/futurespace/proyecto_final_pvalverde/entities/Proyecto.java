@@ -2,10 +2,12 @@ package com.futurespace.proyecto_final_pvalverde.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity(name = "proyectos")
@@ -26,7 +28,7 @@ public class Proyecto {
             updatable = false,
             nullable = false
     )
-    private int id_proyecto;
+    private Integer id_proyecto;
 
     @Column(
             name="TX_DESCRIPCIÓN",
@@ -34,6 +36,8 @@ public class Proyecto {
             nullable=false,
             columnDefinition = "TEXT"
     )
+    @NotBlank(message = "Este campo no puede estar vacío")
+    @Size(message = "Este campo debe tener un máximo de 125 caracteres")
     private String descripcion;
 
     @Column(
@@ -41,6 +45,7 @@ public class Proyecto {
             nullable=false,
             columnDefinition = "DATE"
     )
+    @NotNull(message = "Este campo no puede estar vacío")
     private LocalDate fecha_inicio;
 
     @Column(
@@ -60,6 +65,7 @@ public class Proyecto {
             length = 30,
             columnDefinition = "TEXT"
     )
+    @Size(max = 30, message = "Este campo no puede tener más de 30 caracteres")
     private String lugar;
 
     @Column(
@@ -67,6 +73,7 @@ public class Proyecto {
             length = 300,
             columnDefinition = "TEXT"
     )
+    @Size(max = 300, message = "Este campo no puede tener más de 300 caracteres")
     private String observaciones;
 
     @OneToMany(mappedBy = "proyecto", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -77,7 +84,7 @@ public class Proyecto {
     public Proyecto() {
     }
 
-    public Proyecto(int id_proyecto, String descripcion, LocalDate fecha_inicio,
+    public Proyecto(Integer id_proyecto, String descripcion, LocalDate fecha_inicio,
                     LocalDate fecha_fin, LocalDate fecha_baja, String lugar,
                     String observaciones) {
         this.id_proyecto = id_proyecto;
@@ -95,11 +102,11 @@ public class Proyecto {
 
     //GETTER AND SETTER
 
-    public int getId_proyecto() {
+    public Integer getId_proyecto() {
         return id_proyecto;
     }
 
-    public void setId_proyecto(int id_proyecto) {
+    public void setId_proyecto(Integer id_proyecto) {
         this.id_proyecto = id_proyecto;
     }
 

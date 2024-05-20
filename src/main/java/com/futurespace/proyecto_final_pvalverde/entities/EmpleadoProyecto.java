@@ -2,6 +2,7 @@ package com.futurespace.proyecto_final_pvalverde.entities;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity(name = "PR_EMPLEADO_PROYECTO")
@@ -17,7 +18,7 @@ public class EmpleadoProyecto {
         private Empleado empleado;
 
         @ManyToOne
-       // @MapsId("id_proyecto")
+        //@MapsId("id_proyecto")
         @JoinColumn(name = "ID_PROYECTO")
         private Proyecto proyecto;
 

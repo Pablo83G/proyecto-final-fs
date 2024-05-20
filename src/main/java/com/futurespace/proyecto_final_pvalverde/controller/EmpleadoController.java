@@ -2,8 +2,10 @@ package com.futurespace.proyecto_final_pvalverde.controller;
 
 import com.futurespace.proyecto_final_pvalverde.entities.Empleado;
 import com.futurespace.proyecto_final_pvalverde.services.EmpleadoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +21,7 @@ public class EmpleadoController {
 
 
     @PostMapping("/createEmpleado")
-    public ResponseEntity<Object> addEmpleado(@RequestBody Empleado empleado){
+    public ResponseEntity<Object> addEmpleado(@Valid @RequestBody Empleado empleado){
         return empleadoService.addEmpleado(empleado);
     }
 
@@ -55,8 +57,5 @@ public class EmpleadoController {
     public ResponseEntity<Object> updateFechaBajaEmpleado(@PathVariable int id_empleado) {
         return empleadoService.updateFechaBajaEmpleado(id_empleado);
     }
-
-
-
 
 }

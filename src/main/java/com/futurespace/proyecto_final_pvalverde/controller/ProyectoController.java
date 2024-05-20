@@ -3,6 +3,7 @@ package com.futurespace.proyecto_final_pvalverde.controller;
 import com.futurespace.proyecto_final_pvalverde.entities.Empleado;
 import com.futurespace.proyecto_final_pvalverde.entities.Proyecto;
 import com.futurespace.proyecto_final_pvalverde.services.ProyectoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class ProyectoController {
     private ProyectoService proyectoService;
 
     @PostMapping("/createProyecto")
-    public ResponseEntity<Object> addProyecto(@RequestBody Proyecto proyecto){
+    public ResponseEntity<Object> addProyecto(@Valid @RequestBody Proyecto proyecto){
         return proyectoService.addProyecto(proyecto);
     }
 
@@ -32,9 +33,9 @@ public class ProyectoController {
         return proyectoService.getProyectoById_proyecto(id_proyecto);
     }
 
-    @PutMapping(path = "/updateProyecto/{id_proyecto}")
+    @PutMapping("/updateProyecto/{id_proyecto}")
     public ResponseEntity<Object>updateFechaBajaProyecto(@PathVariable int id_proyecto){
-        return proyectoService.getProyectoById_proyecto(id_proyecto);
+        return proyectoService.updateFechaBajaProyecto(id_proyecto);
     }
 
 
