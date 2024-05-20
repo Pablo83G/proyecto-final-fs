@@ -2,6 +2,7 @@ package com.futurespace.proyecto_final_pvalverde.controller;
 
 import com.futurespace.proyecto_final_pvalverde.entities.Empleado;
 import com.futurespace.proyecto_final_pvalverde.entities.EmpleadoProyecto;
+import com.futurespace.proyecto_final_pvalverde.entities.EmpleadoProyectoId;
 import com.futurespace.proyecto_final_pvalverde.entities.Proyecto;
 import com.futurespace.proyecto_final_pvalverde.services.EmpleadoProyectoService;
 import com.futurespace.proyecto_final_pvalverde.services.EmpleadoService;
@@ -34,16 +35,16 @@ public class EmpleadoProyectoController {
     }
 
    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<EmpleadoProyecto>asignarEmpleadoAProyecto(@RequestBody Integer id_empleado, Integer id_proyecto, Empleado empleado, Proyecto proyecto, LocalDate fecha_alta){
-        return empleadoProyectoService.asignarEmpleadoAProyecto(id_empleado, id_proyecto, empleado, proyecto, fecha_alta);
+    public ResponseEntity<EmpleadoProyecto>asignarEmpleadoAProyecto(@RequestBody Integer idEmpleado, Integer idProyecto){
+        return empleadoProyectoService.asignarEmpleadoAProyecto(idEmpleado, idProyecto);
     }
 
 
-    @Transactional
+   /*@Transactional
     @PostMapping("/insert")
-    public ResponseEntity<EmpleadoProyecto> insertEmployeeProject(@RequestBody EmpleadoProyecto empleadoProyecto){
-        return empleadoProyectoService.insertEmployeeProject(empleadoProyecto);
-    }
+    public ResponseEntity<EmpleadoProyectoId> insertEmployeeProject(@RequestBody EmpleadoProyectoId empleadoProyectoId){
+        return empleadoProyectoService.insertEmployeeProject(empleadoProyectoId);
+    }*/
 
 
 }

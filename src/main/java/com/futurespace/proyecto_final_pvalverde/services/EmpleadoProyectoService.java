@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EmpleadoProyectoService {
@@ -25,10 +24,10 @@ public class EmpleadoProyectoService {
     private IEmpleadoProyectoRepository iEmpleadoProyectoRepository;
 
     @Autowired
-    private IEmpleadoRepository empleadoRepository;
+    private IEmpleadoRepository iEmpleadoRepository;
 
     @Autowired
-    private IProyectoRepository proyectoRepository;
+    private IProyectoRepository iProyectoRepository;
 
     public ResponseEntity<List<EmpleadoProyecto>> getEmpleadoProyecto(){
         ResponseEntity<?> resp = null;
@@ -42,17 +41,16 @@ public class EmpleadoProyectoService {
 
     //Asignar Empleado a Proyecto
    @Transactional
-    public ResponseEntity<EmpleadoProyecto> asignarEmpleadoAProyecto(Integer id_empleado, Integer id_proyecto, Empleado empleado, Proyecto proyecto, LocalDate fecha_alta) {
-        Optional<Empleado> empleadoOpt = empleadoRepository.findById(id_empleado);
-        Optional<Proyecto> proyectoOpt = proyectoRepository.findById(id_proyecto);
+    public ResponseEntity<EmpleadoProyecto> asignarEmpleadoAProyecto(Integer idEmpleado, Integer idProyecto) {
+        EmpleadoProyectoId empleadoProyectoId = new EmpleadoProyectoId();
+        Empleado empleado = iEmpleadoRepository.findActiveEmpleadoByIdEmpleado(idEmpleado);
+        Proyecto proyecto = iProyectoRepository.findActiveProyectoByIdProyecto(idProyecto);
 
-        if (empleadoOpt.isEmpty() || proyectoOpt.isEmpty()) {
-            return new ResponseEntity<>( HttpStatus.NOT_FOUND);
-        }
-        fecha_alta = LocalDate.now();
-        empleado = empleadoOpt.get();
-        proyecto = proyectoOpt.get();
-        EmpleadoProyectoId empleadoProyectoId = new EmpleadoProyectoId(id_empleado, id_proyecto);
+        LocalDate fecha_alta = LocalDate.now();
+
+        empleadoProyectoId.setIdEmpleado(idEmpleado);
+        empleadoProyectoId.setIdProyecto(idProyecto);
+
         EmpleadoProyecto empleadoProyecto = new EmpleadoProyecto(empleadoProyectoId, empleado, proyecto, fecha_alta);
 
         EmpleadoProyecto emplproy = iEmpleadoProyectoRepository.save(empleadoProyecto);
@@ -62,16 +60,17 @@ public class EmpleadoProyectoService {
     }
 
 
-    public ResponseEntity<EmpleadoProyecto> insertEmployeeProject(@RequestBody EmpleadoProyecto empleadoProyecto){
-
+   /* public ResponseEntity<EmpleadoProyecto> insertEmployeeProject(@RequestBody EmpleadoProyectoId empleadoProyectoId){
+        EmpleadoProyecto empleadoProyecto = new EmpleadoProyecto();
+        empleadoProyecto = iEmpleadoProyectoRepository.save(empleadoProyecto);
         LocalDate fecha = LocalDate.now();
         try{
-            empleadoProyecto.setFecha_alta(fecha);
+            empleadoProyecto.setFechaAlta(fecha);
             return new ResponseEntity<>(iEmpleadoProyectoRepository.save(empleadoProyecto), HttpStatus.OK);
         }catch(Exception e){
-            e.printStackTrace();
+            System.out.print(e.getMessage());
             return new ResponseEntity<>(iEmpleadoProyectoRepository.save(empleadoProyecto), HttpStatus.BAD_REQUEST);
         }
-    }
+    }*/
 
 }

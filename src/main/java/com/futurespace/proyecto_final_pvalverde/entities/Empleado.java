@@ -1,6 +1,5 @@
 package com.futurespace.proyecto_final_pvalverde.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -8,14 +7,12 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 //@Entity para identificar que una clase sea una entidad
 // Recibe como parametro un atributo y podemor representar el nombre
 //de la entidad de nuestra clase. El nombre no es el nombre de la tabla en la bd
 //si no una representación de la entidad que utilizaremos para realizar consultas
-@Entity(name = "empleados")
+@Entity
 //Nos ayuda a representar esta entidad como una tabla
 @Table(name = "EM_EMPLEADOS")
 public class Empleado {
@@ -34,7 +31,7 @@ public class Empleado {
             updatable = false,
             nullable = false
     )
-    private Integer id_empleado;
+    private Integer idEmpleado;
 
     @Column(name = "TX_NIF",
             length = 9,
@@ -137,21 +134,34 @@ public class Empleado {
     private Character servicio_militar;
 
 
-    @OneToMany(mappedBy = "empleado", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference
-    private Set<EmpleadoProyecto> empleadoProyecto = new HashSet<>();
-
 
 //CONSTRUCTORES
 
     public Empleado() {
     }
 
+    public Empleado(String nif, String nombre, String primer_apellido, String segundo_apellido,
+                    String telefono_uno, String telefono_dos, LocalDate fecha_nacimiento, LocalDate fecha_alta,
+                    LocalDate fecha_baja, String email, Character estado_civil, Character servicio_militar) {
+        this.nif = nif;
+        this.nombre = nombre;
+        this.primer_apellido = primer_apellido;
+        this.segundo_apellido = segundo_apellido;
+        this.telefono_uno = telefono_uno;
+        this.telefono_dos = telefono_dos;
+        this.fecha_nacimiento = fecha_nacimiento;
+        this.fecha_alta = fecha_alta;
+        this.fecha_baja = fecha_baja;
+        this.email = email;
+        this.estado_civil = estado_civil;
+        this.servicio_militar = servicio_militar;
+    }
+
     public Empleado(Integer id_empleado, String nif, String nombre, String primer_apellido,
                     String segundo_apellido, String telefono_uno, String telefono_dos,
                     LocalDate fecha_nacimiento, LocalDate fecha_alta, LocalDate fecha_baja,
                     String email, char estado_civil, char servicio_militar) {
-        this.id_empleado = id_empleado;
+        this.idEmpleado = id_empleado;
         this.nif = nif;
         this.nombre = nombre;
         this.primer_apellido = primer_apellido;
@@ -171,12 +181,12 @@ public class Empleado {
     //SETTER Y GETTER
 
 
-    public Integer getId_empleado() {
-        return id_empleado;
+    public Integer getIdEmpleado() {
+        return idEmpleado;
     }
 
-    public void setId_empleado(Integer id_empleado) {
-        this.id_empleado = id_empleado;
+    public void setIdEmpleado(Integer idEmpleado) {
+        this.idEmpleado = idEmpleado;
     }
 
     public String getNif() {
@@ -275,11 +285,5 @@ public class Empleado {
         this.servicio_militar = servicio_militar;
     }
 
-    public Set<EmpleadoProyecto> getEmpleadoProyecto() {
-        return empleadoProyecto;
-    }
 
-    public void setEmpleadoProyecto(Set<EmpleadoProyecto> empleadoProyecto) {
-        this.empleadoProyecto = empleadoProyecto;
-    }
 }

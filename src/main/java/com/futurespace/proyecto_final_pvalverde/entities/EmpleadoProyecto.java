@@ -2,7 +2,6 @@ package com.futurespace.proyecto_final_pvalverde.entities;
 
 import jakarta.persistence.*;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity(name = "PR_EMPLEADO_PROYECTO")
@@ -10,30 +9,31 @@ import java.time.LocalDate;
 public class EmpleadoProyecto {
 
         @EmbeddedId
+
         private EmpleadoProyectoId id;
 
         @ManyToOne
         //@MapsId("id_empleado")
         @JoinColumn(name = "ID_EMPLEADO")
-        private Empleado empleado;
+        private Empleado idEmpleado;
 
         @ManyToOne
         //@MapsId("id_proyecto")
         @JoinColumn(name = "ID_PROYECTO")
-        private Proyecto proyecto;
+        private Proyecto idProyecto;
 
         @Column(name = "F_ALTA", nullable = false)
-        private LocalDate fecha_alta;
+        private LocalDate fechaAlta;
 
         //CONSTRUCTORES
         public EmpleadoProyecto() {
         }
 
-        public EmpleadoProyecto(EmpleadoProyectoId id, Empleado empleado, Proyecto proyecto, LocalDate fecha_alta) {
+        public EmpleadoProyecto(EmpleadoProyectoId id, Empleado idEmpleado, Proyecto idProyecto, LocalDate fechaAlta) {
                 this.id = id;
-                this.empleado = empleado;
-                this.proyecto = proyecto;
-                this.fecha_alta = fecha_alta;
+                this.idEmpleado = idEmpleado;
+                this.idProyecto = idProyecto;
+                this.fechaAlta = fechaAlta;
         }
 
 //GETTER AND SETTER
@@ -46,27 +46,27 @@ public class EmpleadoProyecto {
                 this.id = id;
         }
 
-        public Empleado getEmpleado() {
-                return empleado;
+        public Empleado getIdEmpleado() {
+                return idEmpleado;
         }
 
-        public void setEmpleado(Empleado empleado) {
-                this.empleado = empleado;
+        public void setIdEmpleado(Empleado idEmpleado) {
+                this.idEmpleado = idEmpleado;
         }
 
-        public Proyecto getProyecto() {
-                return proyecto;
+        public Proyecto getIdProyecto() {
+                return idProyecto;
         }
 
-        public void setProyecto(Proyecto proyecto) {
-                this.proyecto = proyecto;
+        public void setIdProyecto(Proyecto idProyecto) {
+                this.idProyecto = idProyecto;
         }
 
-        public LocalDate getFecha_alta() {
-                return fecha_alta;
+        public LocalDate getFechaAlta() {
+                return fechaAlta;
         }
 
-        public void setFecha_alta(LocalDate fecha_alta) {
-                this.fecha_alta = fecha_alta;
+        public void setFechaAlta(LocalDate fechaAlta) {
+                this.fechaAlta = fechaAlta;
         }
 }

@@ -58,12 +58,12 @@ public class EmpleadoService {
     }
 
 
-   public ResponseEntity<Object> getById_empleado(Integer id_empleado){
+   public ResponseEntity<Object> getByIdEmpleado(Integer idEmpleado){
        ResponseEntity<Object> resp = null;
-       if(id_empleado == null){
+       if(idEmpleado == null){
            return ResponseEntity.badRequest().body("ID de empleado no proporcionado");
        }
-       Optional<Empleado> empl = iEmpleadoRepository.findById(id_empleado);
+       Optional<Empleado> empl = iEmpleadoRepository.findById(idEmpleado);
        if(empl.isEmpty()){
            return ResponseEntity.notFound().build();
        }

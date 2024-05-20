@@ -1,19 +1,15 @@
 package com.futurespace.proyecto_final_pvalverde.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
-@Entity(name = "proyectos")
+@Entity
 @Table(name = "PR_PROYECTOS")
 public class Proyecto {
-    /*/ID_PROYECTO 				INT(5) PRIMARY KEY NOT NULL */
     @Id
     @GeneratedValue( strategy = GenerationType.SEQUENCE,
             generator = "proyecto_sequence"
@@ -28,7 +24,7 @@ public class Proyecto {
             updatable = false,
             nullable = false
     )
-    private Integer id_proyecto;
+    private Integer idProyecto;
 
     @Column(
             name="TX_DESCRIPCIÓN",
@@ -76,18 +72,14 @@ public class Proyecto {
     @Size(max = 300, message = "Este campo no puede tener más de 300 caracteres")
     private String observaciones;
 
-    @OneToMany(mappedBy = "proyecto", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference
-    private Set<EmpleadoProyecto> empleadoProyecto = new HashSet<>();
+
 
     //CONSTRUCTOR
     public Proyecto() {
     }
 
-    public Proyecto(Integer id_proyecto, String descripcion, LocalDate fecha_inicio,
-                    LocalDate fecha_fin, LocalDate fecha_baja, String lugar,
-                    String observaciones) {
-        this.id_proyecto = id_proyecto;
+    public Proyecto(String descripcion, LocalDate fecha_inicio, LocalDate fecha_fin,
+                    LocalDate fecha_baja, String lugar, String observaciones) {
         this.descripcion = descripcion;
         this.fecha_inicio = fecha_inicio;
         this.fecha_fin = fecha_fin;
@@ -96,18 +88,27 @@ public class Proyecto {
         this.observaciones = observaciones;
     }
 
-    public Proyecto(Set<EmpleadoProyecto> empleadoProyecto) {
-        this.empleadoProyecto = empleadoProyecto;
+    public Proyecto(Integer idProyecto, String descripcion, LocalDate fecha_inicio,
+                    LocalDate fecha_fin, LocalDate fecha_baja, String lugar,
+                    String observaciones) {
+        this.idProyecto = idProyecto;
+        this.descripcion = descripcion;
+        this.fecha_inicio = fecha_inicio;
+        this.fecha_fin = fecha_fin;
+        this.fecha_baja = fecha_baja;
+        this.lugar = lugar;
+        this.observaciones = observaciones;
     }
+
 
     //GETTER AND SETTER
 
-    public Integer getId_proyecto() {
-        return id_proyecto;
+    public Integer getIdProyecto() {
+        return idProyecto;
     }
 
-    public void setId_proyecto(Integer id_proyecto) {
-        this.id_proyecto = id_proyecto;
+    public void setIdProyecto(Integer idProyecto) {
+        this.idProyecto = idProyecto;
     }
 
     public String getDescripcion() {
@@ -158,12 +159,6 @@ public class Proyecto {
         this.observaciones = observaciones;
     }
 
-    public Set<EmpleadoProyecto> getEmpleadoProyecto() {
-        return empleadoProyecto;
-    }
 
-    public void setEmpleadoProyecto(Set<EmpleadoProyecto> empleadoProyecto) {
-        this.empleadoProyecto = empleadoProyecto;
-    }
 }
 
