@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IProyectoRepository extends JpaRepository<Proyecto, Integer> {
 
-  @Query("SELECT e FROM PR_PROYECTO e WHERE e.idProyecto = ?1 AND e.fecha_baja IS NULL")
-    Proyecto findActiveProyectoByIdProyecto(Integer idProyecto);
+  //@Query("SELECT e FROM PR_PROYECTO e WHERE e.idProyecto = ?1 AND e.fecha_baja IS NULL")
+  //  Proyecto findActiveProyectoByIdProyecto(Integer idProyecto);
 
 }
 

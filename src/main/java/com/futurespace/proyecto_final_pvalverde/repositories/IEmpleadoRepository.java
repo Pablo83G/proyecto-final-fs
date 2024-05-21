@@ -12,6 +12,6 @@ import java.util.List;
 //Nombre de clase y tipo de datos de su ID
 public interface IEmpleadoRepository extends JpaRepository<Empleado, Integer> {
 
-    @Query("SELECT e FROM EM_EMPLEADOS e WHERE e.idEmpleado = ?1 AND e.fecha_baja IS NULL")
-    Empleado findActiveEmpleadoByIdEmpleado(Integer idEmpleado);
+   //@Query("SELECT e FROM EM_EMPLEADOS e WHERE e.idEmpleado = ?1 AND e.fecha_baja IS NULL")
+   // Empleado findActiveEmpleadoByIdEmpleado(Integer idEmpleado);
 }

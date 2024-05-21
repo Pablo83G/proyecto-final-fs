@@ -102,7 +102,6 @@ public class Proyecto {
 
 
     //GETTER AND SETTER
-
     public Integer getIdProyecto() {
         return idProyecto;
     }

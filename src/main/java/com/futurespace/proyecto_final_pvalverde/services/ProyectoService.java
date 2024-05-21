@@ -56,13 +56,13 @@ public class ProyectoService {
     }
 
     //Encontar proyecto por id
-    public ResponseEntity<Object>getProyectoById_proyecto(Integer id_proyecto){
+    public ResponseEntity<Object>getProyectoById_proyecto(Integer idProyecto){
         ResponseEntity<Object> resp = null;
-        if(id_proyecto == null){
+        if(idProyecto == null){
             resp = new ResponseEntity<>("ID de proyecto no proporcionado", HttpStatus.BAD_REQUEST);
             return resp;
         }
-        Optional<Proyecto> proyId = iProyectoRepository.findById(id_proyecto);
+        Optional<Proyecto> proyId = iProyectoRepository.findById(idProyecto);
         if(proyId.isEmpty()){
             resp = new ResponseEntity<>("EL id proporcionado no se encuentra",HttpStatus.NOT_FOUND);
             return resp;
@@ -72,10 +72,10 @@ public class ProyectoService {
 
 
     //Actualizar Fecha de Baja Proyecto
-    public ResponseEntity<Object> updateFechaBajaProyecto(int id_proyecto) {
+    public ResponseEntity<Object> updateFechaBajaProyecto(int idProyecto) {
         ResponseEntity<Object> resp = null;
         try {
-            Optional<Proyecto> optionalProyecto = iProyectoRepository.findById(id_proyecto);
+            Optional<Proyecto> optionalProyecto = iProyectoRepository.findById(idProyecto);
             if (optionalProyecto.isEmpty()) {
                 resp = new ResponseEntity<>("No se ha encontrado ningún proyecto", HttpStatus.NOT_FOUND);
                 return resp;
@@ -86,15 +86,6 @@ public class ProyectoService {
                 resp = new ResponseEntity<>("El proyecto ya ha sido dado de baja anteriormente", HttpStatus.BAD_REQUEST);
                 return resp;
             }
-
-            // Verificar si el empleado está asignado a proyectos
-            /*if (!empleado.getProyecto().isEmpty()) {
-                StringBuilder mensaje = new StringBuilder("No se puede dar de baja al empleado ");
-                mensaje.append(empleado.getNombre_completo());
-                mensaje.append(" porque está asignado al/los proyecto/s: ");
-                mensaje.append(empleado.getProyecto().stream().map(Proyecto::getDescripcion).collect(Collectors.joining(", ")));
-                return ResponseEntity.badRequest().body(mensaje.toString());
-            }*/
 
             proyecto.setFecha_baja(LocalDate.now());
             iProyectoRepository.save(proyecto);

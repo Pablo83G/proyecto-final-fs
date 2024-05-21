@@ -72,19 +72,19 @@ public class EmpleadoService {
 
 
     //Borrar datos
-    public ResponseEntity<Object> deleteIdEmpleado(int id_empleado){
+    public ResponseEntity<Object> deleteIdEmpleado(int idEmpleado){
         ResponseEntity<Object> resp = null;
-        //Optional<Empleado> empleadoId = iEmpleadosRepositorio.findById(id_empleado);
-        iEmpleadoRepository.deleteById(id_empleado);
+        //Optional<Empleado> empleadoId = iEmpleadosRepositorio.findById(idEmpleado);
+        iEmpleadoRepository.deleteById(idEmpleado);
         resp = new ResponseEntity<>("Empleado eliminado correctamente", HttpStatus.OK);
         return resp;
     }
 
 
     //Actualizar Fecha de Baja Empleado
-   public ResponseEntity<Object> updateFechaBajaEmpleado(int id_empleado) {
+   public ResponseEntity<Object> updateFechaBajaEmpleado(int idEmpleado) {
         try {
-            Optional<Empleado> optionalEmpleado = iEmpleadoRepository.findById(id_empleado);
+            Optional<Empleado> optionalEmpleado = iEmpleadoRepository.findById(idEmpleado);
             if (optionalEmpleado.isEmpty()) {
                 return ResponseEntity.notFound().build();
             }

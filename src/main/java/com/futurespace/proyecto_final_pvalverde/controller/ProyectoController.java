@@ -11,31 +11,35 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-//@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping(path = "/proyectos")//http://localhost:8080/proyectos
 public class ProyectoController {
 
+    //Conecta con el servicio
     @Autowired
     private ProyectoService proyectoService;
 
+    //Insertar proyectos
     @PostMapping("/createProyecto")
     public ResponseEntity<Object> addProyecto(@Valid @RequestBody Proyecto proyecto){
         return proyectoService.addProyecto(proyecto);
     }
 
+    //Conseguir todos los proyectos
     @GetMapping(path = "/getProyectos")
     public ResponseEntity<List<Proyecto>>getProyecto(){
         return proyectoService.getProyecto();
     }
 
-    @GetMapping(path = "/getProyectos/{id_proyecto}")
-    public ResponseEntity<?>getProyectoById_proyecto(@PathVariable Integer id_proyecto){
-        return proyectoService.getProyectoById_proyecto(id_proyecto);
+    //Conseguir proyectos por id
+    @GetMapping(path = "/getProyectos/{idProyecto}")
+    public ResponseEntity<?>getProyectoById_proyecto(@PathVariable Integer idProyecto){
+        return proyectoService.getProyectoById_proyecto(idProyecto);
     }
 
-    @PutMapping("/updateProyecto/{id_proyecto}")
-    public ResponseEntity<Object>updateFechaBajaProyecto(@PathVariable int id_proyecto){
-        return proyectoService.updateFechaBajaProyecto(id_proyecto);
+    //Actualizar por fecha de baja
+    @PutMapping("/updateProyecto/{idProyecto}")
+    public ResponseEntity<Object>updateFechaBajaProyecto(@PathVariable int idProyecto){
+        return proyectoService.updateFechaBajaProyecto(idProyecto);
     }
 
 

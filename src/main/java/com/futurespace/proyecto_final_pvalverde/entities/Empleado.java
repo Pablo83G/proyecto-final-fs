@@ -8,9 +8,8 @@ import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
-//@Entity para identificar que una clase sea una entidad
-// Recibe como parametro un atributo y podemor representar el nombre
-//de la entidad de nuestra clase. El nombre no es el nombre de la tabla en la bd
+//@Entity para identificar que una clase sea una entidad. Recibe como parametro un atributo y podemor
+// representar el nombre de la entidad de nuestra clase. El nombre no es el nombre de la tabla en la bd
 //si no una representación de la entidad que utilizaremos para realizar consultas
 @Entity
 //Nos ayuda a representar esta entidad como una tabla
@@ -135,8 +134,7 @@ public class Empleado {
 
 
 
-//CONSTRUCTORES
-
+    //CONSTRUCTORES
     public Empleado() {
     }
 
@@ -177,10 +175,7 @@ public class Empleado {
     }
 
 
-
     //SETTER Y GETTER
-
-
     public Integer getIdEmpleado() {
         return idEmpleado;
     }

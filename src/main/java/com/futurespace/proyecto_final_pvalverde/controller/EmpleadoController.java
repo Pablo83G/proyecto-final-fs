@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-//@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/empleados")//http://localhost:8080/empleados
 public class EmpleadoController {
 
@@ -20,36 +19,30 @@ public class EmpleadoController {
     EmpleadoService empleadoService;
 
 
+    //Insertar empleados
     @PostMapping("/createEmpleado")
     public ResponseEntity<Object> addEmpleado(@Valid @RequestBody Empleado empleado){
         return empleadoService.addEmpleado(empleado);
     }
 
-
+    //Conseguir empleados
     @GetMapping("/getEmpleados")
     public ResponseEntity<List<Empleado>> getEmpleado(){
         return empleadoService.getEmpleado();
     }
 
 
-
-    @GetMapping("/getEmpleados/{id_empleado}")
+    //Conseguir empleados por id
+    @GetMapping("/getEmpleados/{idEmpleado}")
     public ResponseEntity<?> getByIdEmpleado(@PathVariable Integer idEmpleado){
         return empleadoService.getByIdEmpleado(idEmpleado);
     }
 
-    // Actualizar la información sobre los empleados
-   /* @PutMapping (path = "updateEmpleado/{id_empleado}")
-   //public ResponseEntity<Empleado> updateEmpleado(@PathVariable int id_empleado, @Validated @RequestBody UpdateUserDetailsRequestModel userDetails)
-    public ResponseEntity<Object> updateEmpleado(@RequestBody Empleado empleado, @PathVariable int id_empleado) {
-
-        return empleadoService.updateEmpleado(empleado, id_empleado);
-    }*/
 
     //Borrar usuario
-    @DeleteMapping (path = "deleteById/{id_empleado}")
-    public ResponseEntity<Object> deleteIdEmpleado(@PathVariable int id_empleado){
-        return empleadoService.deleteIdEmpleado(id_empleado);
+    @DeleteMapping (path = "deleteById/{idEmpleado}")
+    public ResponseEntity<Object> deleteIdEmpleado(@PathVariable int idEmpleado){
+        return empleadoService.deleteIdEmpleado(idEmpleado);
     }
 
     //Actualizar fecha de baja

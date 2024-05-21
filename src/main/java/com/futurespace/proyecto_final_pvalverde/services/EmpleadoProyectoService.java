@@ -19,7 +19,7 @@ import java.util.List;
 
 @Service
 public class EmpleadoProyectoService {
-
+    //Conexión con el repositorio
     @Autowired
     private IEmpleadoProyectoRepository iEmpleadoProyectoRepository;
 
@@ -40,7 +40,7 @@ public class EmpleadoProyectoService {
 
 
     //Asignar Empleado a Proyecto
-   @Transactional
+   /*@Transactional
     public ResponseEntity<EmpleadoProyecto> asignarEmpleadoAProyecto(Integer idEmpleado, Integer idProyecto) {
         EmpleadoProyectoId empleadoProyectoId = new EmpleadoProyectoId();
         Empleado empleado = iEmpleadoRepository.findActiveEmpleadoByIdEmpleado(idEmpleado);
@@ -57,7 +57,7 @@ public class EmpleadoProyectoService {
 
         return new ResponseEntity<>(emplproy, HttpStatus.OK);
 
-    }
+    }*/
 
 
    /* public ResponseEntity<EmpleadoProyecto> insertEmployeeProject(@RequestBody EmpleadoProyectoId empleadoProyectoId){

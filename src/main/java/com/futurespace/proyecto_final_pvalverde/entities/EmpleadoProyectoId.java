@@ -15,6 +15,7 @@ public class EmpleadoProyectoId implements Serializable {
     @Column(name = "id_proyecto")
     private Integer idProyecto;
 
+    //CONSTRUCTORES
     public EmpleadoProyectoId() {
     }
 
@@ -22,6 +23,8 @@ public class EmpleadoProyectoId implements Serializable {
         this.idEmpleado = idEmpleado;
         this.idProyecto = idProyecto;
     }
+
+    //GETTER AND SETTER
 
     public Integer getIdEmpleado() {
         return idEmpleado;
@@ -38,35 +41,4 @@ public class EmpleadoProyectoId implements Serializable {
     public void setIdProyecto(Integer idProyecto) {
         this.idProyecto = idProyecto;
     }
-/* @Column
-    private Integer id_empleado;
-    @Column
-    private Integer id_proyecto;
-
-    //CONSTRUCTORES
-    public EmpleadoProyectoId() {
-    }
-
-    public EmpleadoProyectoId(Integer id_empleado, Integer id_proyecto) {
-        this.id_empleado = id_empleado;
-        this.id_proyecto = id_proyecto;
-    }
-
-    //GETTER AND SETTER
-
-    public Integer getId_empleado() {
-        return id_empleado;
-    }
-
-    public void setId_empleado(Integer id_empleado) {
-        this.id_empleado = id_empleado;
-    }
-
-    public Integer getId_proyecto() {
-        return id_proyecto;
-    }
-
-    public void setId_proyecto(Integer id_proyecto) {
-        this.id_proyecto = id_proyecto;
-    }*/
 }

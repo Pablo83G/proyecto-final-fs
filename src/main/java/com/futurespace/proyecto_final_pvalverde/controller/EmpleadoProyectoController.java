@@ -20,6 +20,7 @@ import java.util.List;
 @RequestMapping("empleado_proyecto")
 public class EmpleadoProyectoController {
 
+    //Conexión con el servicio
     @Autowired
     private EmpleadoService empleadoService;
 
@@ -29,15 +30,16 @@ public class EmpleadoProyectoController {
     @Autowired
     private EmpleadoProyectoService empleadoProyectoService;
 
+    //Lista de empleados-proyectos
     @GetMapping("listaEmplProy")
     public ResponseEntity<List<EmpleadoProyecto>> getEmpleadoProyecto(){
         return empleadoProyectoService.getEmpleadoProyecto();
     }
 
-   @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+   /*@PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<EmpleadoProyecto>asignarEmpleadoAProyecto(@RequestBody Integer idEmpleado, Integer idProyecto){
         return empleadoProyectoService.asignarEmpleadoAProyecto(idEmpleado, idProyecto);
-    }
+    }*/
 
 
    /*@Transactional
